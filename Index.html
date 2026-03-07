@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Toko Baju Aesthetic</title>
+  <style>
+    :root{
+      --text:#eef2ff;
+      --muted:#c7d2fe;
+      --card: rgba(255,255,255,.10);
+      --card2: rgba(255,255,255,.14);
+      --stroke: rgba(255,255,255,.16);
+      --shadow: 0 18px 45px rgba(0,0,0,.35);
+      --radius: 18px;
+      --ring: rgba(56,189,248,.35);
+      --wa1:#22c55e;
+      --wa2:#16a34a;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      min-height:100vh;
+
+      /* Background aesthetic (gradient + blobs + pattern) */
+      background:
+        radial-gradient(900px 500px at 15% 10%, rgba(236,72,153,.25), transparent 60%),
+        radial-gradient(900px 500px at 85% 20%, rgba(56,189,248,.22), transparent 60%),
+        radial-gradient(900px 600px at 55% 95%, rgba(34,197,94,.18), transparent 60%),
+        linear-gradient(180deg, #0b1020, #0b1224 55%, #090a12);
+      overflow-x:hidden;
+    }
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      background-image: radial-gradient(rgba(255,255,255,.10) 1px, transparent 1px);
+      background-size: 22px 22px;
+      opacity:.22;
+      pointer-events:none;
+      mix-blend-mode: overlay;
+    }
+
+    .container{max-width:1100px; margin:0 auto; padding:24px}
+
+    header{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:16px 18px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.08);
+      border:1px solid var(--stroke);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+      position: sticky; top: 14px; z-index: 10;
+    }
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{
+      width:44px; height:44px; border-radius:16px;
+      background: linear-gradient(135deg, rgba(236,72,153,.95), rgba(56,189,248,.95));
+      box-shadow: 0 16px 36px rgba(236,72,153,.18);
+    }
+    .brand h1{margin:0; font-size:16px}
+    .brand p{margin:0; font-size:12px; color:var(--muted)}
+
+    .actions{display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+    .chip{
+      padding:10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.07);
+      border:1px solid var(--stroke);
+      color: var(--muted);
+      font-size:12px;
+    }
+    .btn{
+      cursor:pointer;
+      border:none;
+      padding:12px 14px;
+      border-radius: 999px;
+      font-weight:900;
+      color:#05130a;
+      background: linear-gradient(135deg, var(--wa1), var(--wa2));
+      box-shadow: 0 16px 36px rgba(34,197,94,.18);
+      transition:.18s;
+      display:inline-flex; align-items:center; gap:10px;
+    }
+    .btn:hover{transform: translateY(-1px)}
+    .btn:focus{outline:none; box-shadow: 0 0 0 4px var(--ring), 0 16px 36px rgba(34,197,94,.18)}
+
+    .hero{
+      margin:22px 0 14px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:16px;
+    }
+    .panel{
+      padding:18px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.08);
+      border:1px solid var(--stroke);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .panel::after{
+      content:"";
+      position:absolute; right:-60px; top:-60px;
+      width:220px; height:220px;
+      background: radial-gradient(circle, rgba(56,189,248,.30), transparent 65%);
+      transform: rotate(18deg);
+      pointer-events:none;
+    }
+    .hero h2{margin:0 0 8px; font-size:28px}
+    .hero p{margin:0; color:var(--muted); line-height:1.5}
+
+    .grid{
+      margin: 16px 0 34px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:16px;
+    }
+    .card{
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      backdrop-filter: blur(10px);
+      display:flex;
+      flex-direction:column;
+    }
+    .thumb{
+      width:100%;
+      aspect-ratio: 4/3;
+      object-fit:cover;
+      display:block;
+      filter:saturate(1.05) contrast(1.02);
+    }
+    .body{padding:14px 14px 16px; display:flex; flex-direction:column; gap:10px}
+    .top{display:flex; justify-content:space-between; gap:10px; align-items:flex-start}
+    .top h3{margin:0; font-size:16px}
+    .price{font-weight:900; color:#e0f2fe}
+    .desc{margin:0; color:var(--muted); font-size:12.5px; line-height:1.45}
+    .buy{
+      margin-top:2px;
+      display:flex; justify-content:space-between; align-items:center; gap:10px;
+    }
+    .tag{
+      font-size:12px; color:var(--muted);
+      padding:8px 10px; border-radius:999px;
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .mini{
+      cursor:pointer;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      padding:10px 12px;
+      border-radius: 14px;
+      font-weight:800;
+      transition:.18s;
+      white-space:nowrap;
+    }
+    .mini:hover{box-shadow:0 0 0 4px var(--ring); border-color: rgba(56,189,248,.35)}
+    footer{color:var(--muted); text-align:center; font-size:12px; padding:16px 0 26px}
+
+    /* Floating WhatsApp button */
+    .float-wa{
+      position:fixed; right:18px; bottom:18px;
+      z-index: 20;
+      display:flex; gap:10px; align-items:center;
+    }
+    .bubble{
+      padding:8px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      border:1px solid var(--stroke);
+      color: var(--muted);
+      font-size:12px;
+      backdrop-filter: blur(10px);
+    }
+
+    @media (max-width: 920px){
+      .hero{grid-template-columns:1fr}
+      .grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width: 560px){
+      header{flex-direction:column; align-items:stretch}
+      .actions{justify-content:space-between}
+      .grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>TOKO BAJU ZIKRA</h1>
+          <p>Menjual berbagai macam peralatan sekolah • Ready stock • Fast response</p>
+        </div>
+      </div>
+      <div class="actions">
+        <span class="chip">Open: 08.00–22.00</span>
+        <button class="btn" id="waTop">WhatsApp</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="panel">
+        <h2>New Drop Minggu Ini ✨</h2>
+        <p>
+          Pilih produk favoritmu, lalu klik tombol <b>WhatsApp</b> untuk tanya stok, ukuran, atau langsung order.
+        </p>
+      </div>
+      <div class="panel">
+        <h3 style="margin:0 0 10px">Cara Order</h3>
+        <p style="margin:0;color:var(--muted);line-height:1.55">
+          1) Klik “Order via WA” pada produk<br/>
+          2) Kirim pesan otomatis ke admin<br/>
+          3) Konfirmasi ukuran & alamat ✅
+        </p>
+      </div>
+    </section>
+
+    <section class="grid" id="grid"></section>
+
+    <footer>© <span id="year"></span> Toko Baju Zikra • Menjual berbagai macam peralatan sekolah</footer>
+  </div>
+
+  <div class="float-wa">
+    <span class="bubble">Butuh bantuan?</span>
+    <button class="btn" id="waFloat">WhatsApp</button>
+  </div>
+
+  <script>
+    // GANTI NOMOR WA DI SINI (format internasional tanpa +)
+    const WA_NUMBER = "6281382197787";
+
+    const PRODUCTS = [
+      {
+        name: "Seragam sekolah (SD,SMP,SMA)",
+        price: "Rp60.000",
+        desc: "Seragam sekolah nyaman dipakai,bahan adem dan awet",
+        img: "seragam.jpg",
+      },
+      {
+        name: "Sarung wadimor",
+        price: "Rp55.000",
+        desc: "Motif cakep,cocok untuk sholat lebaran/buat sehari hari.",
+        img: "Sarung.jpg",
+      },
+      {
+        name: "Peci songkok",
+        price: "Rp35.000",
+        desc: "Peci elegan untuk tampilan lebih sopan dam rapi.",
+        img: "Peci.jpg",
+      },
+      {
+        name: "Buku tulis campus 1 pack",
+        price: "Rp35.000",
+        desc: "Buku tulis tebal dan berkualitas,Cocok untuk sekolah,catatan,dan kebutuhan pelajar.",
+        img: "Buku.jpg",
+      },
+      {
+        name: "Pulepen joyko 1 pack",
+        price: "Rp30.000",
+        desc: "Pulpen tinta lancar untuk menulis lebih nyaman tiap hari.",
+        img: "Pulpen.jpg",
+      },
+    ];
+
+    const grid = document.getElementById("grid");
+    const year = document.getElementById("year");
+    year.textContent = new Date().getFullYear();
+
+    function waLink(text){
+      return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+    }
+
+    function render(){
+      grid.innerHTML = "";
+      PRODUCTS.forEach((p) => {
+        const card = document.createElement("article");
+        card.className = "card";
+        card.innerHTML = `
+          <img class="thumb" src="${p.img}" alt="${p.name}">
+          <div class="body">
+            <div class="top">
+              <h3>${p.name}</h3>
+              <div class="price">${p.price}</div>
+            </div>
+            <p class="desc">${p.desc}</p>
+            <div class="buy">
+              <span class="tag">Stok: Barang • 500 pcs</span>
+              <a class="mini" target="_blank" rel="noreferrer"
+                 href="${waLink(`Halo admin, saya mau order ${p.name} (${p.price}). Stok & size tersedia?`) }">
+                Order via WA
+              </a>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    render();
+
+    // tombol WA umum
+    const messageGeneral = "Halo admin, saya mau tanya produk & ukuran yang tersedia.";
+    document.getElementById("waTop").onclick = () => window.open(waLink(messageGeneral), "_blank");
+    document.getElementById("waFloat").onclick = () => window.open(waLink(messageGeneral), "_blank");
+  </script>
+</body>
+</html>
